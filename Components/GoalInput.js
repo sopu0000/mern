@@ -14,7 +14,7 @@ const GoalInput = (props) => {
       }}
     >
       <TextInput
-        placeholder="Goals"
+        placeholder="Goals Appke"
         style={{
           borderBottomColor: "black",
           width: "75%",
