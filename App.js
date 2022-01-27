@@ -1,21 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  Button,
+  TextInput,
+  FlatList,
+  ScrollView,
+} from "react-native";
+import GoalInput from "./Components/GoalInput";
+import GoalItem from "./Components/GoalItem";
 
-export default function App() {
+
+const App = () => {
+  const [SaveText, SetSaveText] = useState([]);
+
+  // useEffect(()=>{
+  //      fetch("https://jsonplaceholder.typicode.com/comments")
+  //      .then(response =>response.json())
+  //      .then(json=>SetTexto(json))
+  // },[])
+
+  const onPressHandler = (changeText) => {
+    SetSaveText((SaveText) => [...SaveText, {key:Math.random().toString() , value:changeText}]);
+  };
+
+  console.log(SaveText);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={{ flex: 1 }}> 
+             <GoalInput onButtonPress={onPressHandler}   />
+      <View>
+        
+        <FlatList
+          data={SaveText}
+          keyExtractor={item=>item.key}
+          renderItem={(itemData) => (
+                    <GoalItem value={itemData.item.value}/>
+          )}
+        />
+      </View>
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
